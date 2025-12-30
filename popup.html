@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ApologyRabbit</title>
+  <link rel="stylesheet" href="popup.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="logo-section">
+        <div class="logo">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="16" cy="16" r="14" fill="url(#gradient1)" />
+            <ellipse cx="11" cy="12" rx="3" ry="6" fill="#0a0a0a" />
+            <ellipse cx="21" cy="12" rx="3" ry="6" fill="#0a0a0a" />
+            <circle cx="16" cy="18" r="2" fill="#0a0a0a" />
+            <path d="M12 22 Q16 26 20 22" stroke="#0a0a0a" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <defs>
+              <linearGradient id="gradient1" x1="0" y1="0" x2="32" y2="32">
+                <stop offset="0%" stop-color="#ffffff" />
+                <stop offset="100%" stop-color="#d4d4d4" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="title-group">
+          <h1 class="title">ApologyRabbit</h1>
+          <span class="subtitle">Apology Analysis Assistant</span>
+        </div>
+      </div>
+      <button id="settingsBtn" class="icon-btn" title="Settings">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+      </button>
+    </header>
+
+    <div id="settingsPanel" class="settings-panel hidden">
+      <div class="settings-header">
+        <h2>Settings</h2>
+        <button id="closeSettings" class="icon-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      <div class="settings-content">
+        <div class="form-group">
+          <label for="apiKey">Gemini API Key</label>
+          <div class="input-wrapper">
+            <input type="password" id="apiKey" placeholder="Enter your Gemini API key">
+            <button id="toggleApiKey" class="icon-btn" title="Show/Hide">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </button>
+          </div>
+          <span class="hint">Get your API key from <a href="https://aistudio.google.com/app/apikey" target="_blank">Google AI Studio</a></span>
+        </div>
+        <button id="saveApiKey" class="btn btn-primary">Save API Key</button>
+      </div>
+    </div>
+
+    <main class="main-content">
+      <div id="statusSection" class="status-section">
+        <div id="noTweetMessage" class="message-card">
+          <div class="message-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+          </div>
+          <h3>Navigate to a Post</h3>
+          <p>Open a tweet/post on X (Twitter) that you want to analyze, then click the button below.</p>
+        </div>
+      </div>
+
+      <!-- Tweet Preview -->
+      <div id="tweetPreview" class="tweet-preview hidden">
+        <div class="tweet-header">
+          <div class="tweet-author">
+            <div class="author-avatar" id="authorAvatar">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+              </svg>
+            </div>
+            <div class="author-info">
+              <span class="author-name" id="authorName">@username</span>
+              <span class="tweet-time" id="tweetTime">Loading...</span>
+            </div>
+          </div>
+          <div class="tweet-badge">
+            <span>Apology Post</span>
+          </div>
+        </div>
+        <div class="tweet-content" id="tweetContent">
+          <p>Tweet content will appear here...</p>
+        </div>
+      </div>
+
+      <button id="analyzeBtn" class="btn btn-analyze">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="m21 21-4.35-4.35"/>
+        </svg>
+        <span>Analyze Apology</span>
+      </button>
+
+      <!-- Loading State (reused component)-->
+      <div id="loadingState" class="loading-state hidden">
+        <div class="loading-spinner">
+          <div class="spinner-ring"></div>
+          <div class="spinner-rabbit">
+            <svg width="24" height="24" viewBox="0 0 32 32" fill="none">
+              <circle cx="16" cy="16" r="12" fill="url(#gradient2)" />
+              <ellipse cx="12" cy="13" rx="2" ry="4" fill="#0a0a0a" />
+              <ellipse cx="20" cy="13" rx="2" ry="4" fill="#0a0a0a" />
+              <defs>
+                <linearGradient id="gradient2" x1="0" y1="0" x2="32" y2="32">
+                  <stop offset="0%" stop-color="#ffffff" />
+                  <stop offset="100%" stop-color="#d4d4d4" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+        </div>
+        <p class="loading-text">Analyzing apology...</p>
+        <p class="loading-subtext">Evaluating responsibility, specificity, and more</p>
+      </div>
+
+      <!-- Results Section -->
+      <div id="resultsSection" class="results-section hidden">
+        <div class="results-header">
+          <h2>Analysis Results</h2>
+          <div class="results-actions">
+            <button id="copyResults" class="icon-btn" title="Copy to Clipboard">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+              </svg>
+            </button>
+            <button id="newAnalysis" class="icon-btn" title="New Analysis">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M23 4v6h-6"/>
+                <path d="M1 20v-6h6"/>
+                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div id="resultsContent" class="results-content"></div>
+      </div>
+
+      <div id="errorState" class="error-state hidden">
+        <div class="error-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+        </div>
+        <h3 id="errorTitle">Something went wrong</h3>
+        <p id="errorMessage">Please try again or check your settings.</p>
+        <button id="retryBtn" class="btn btn-secondary">Try Again</button>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p>Critique the apology, not the person</p>
+    </footer>
+  </div>
+
+  <script src="dist/popup.bundle.js"></script>
+</body>
+</html>
