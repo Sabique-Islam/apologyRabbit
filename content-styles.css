@@ -1,0 +1,8 @@
+/* ApologyRabbit - Content Script Styles */
+/* Minimal styles for content script injection */
+
+.apologyrabbit-highlight {
+  outline: 2px solid rgba(167, 139, 250, 0.5);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
