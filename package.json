@@ -1,0 +1,20 @@
+{
+  "name": "apologyrabbit",
+  "version": "1.0.0",
+  "description": "**Apology Analysis Assistant for X (Twitter)**",
+  "main": "background.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@google/genai": "^1.34.0"
+  },
+  "devDependencies": {
+    "webpack": "^5.104.1",
+    "webpack-cli": "^6.0.1"
+  }
+}
