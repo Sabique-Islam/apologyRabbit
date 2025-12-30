@@ -4,8 +4,9 @@
 
 ApologyRabbit is a Chrome extension that analyzes public apology posts on X using AI-powered rubric-based evaluation.
 
-![ApologyRabbit](./static/video/apologyRabbit.mp4)
+![ApologyRabbit](./static/video/apologyRabbit.gif)
 
+#### [Better quality demo](https://cdn.nopejs.me/apologyrabbit/apologyRabbit.mp4)
 ---
 
 ## Features
